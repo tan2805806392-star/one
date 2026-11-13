@@ -109,8 +109,7 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .code-empty{text-align:center;color:var(--sub);font-size:12px;padding:10px 0;width:100%}
 .add-row{display:flex;gap:6px}
 .add-row button{width:56px;height:40px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;}
-.tip{font-size:11px;color:var(--sub);margin-top:4px;text-align:right}
-.fb-boxes{display:grid;grid-template-columns:1fr;gap:6px}
+.tip{font-size:11px;color:var(--sub);margin-top:4px;text-align:right}.fb-boxes{display:grid;grid-template-columns:1fr;gap:6px}
 .fb-box{border-radius:8px;padding:8px 10px;background:var(--card2)}
 .fb-box.has{background:var(--accent-l)}
 .fb-box .fb-box-hd{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--sub);margin-bottom:4px}
@@ -211,8 +210,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 </style>
 </head>
 <body>
-<div class="app">
-<div class="top-nav-wrap">
+<div class="app"><div class="top-nav-wrap">
   <div class="nav-icons">
     <span class="nav-indicator" id="navIndicator"></span>
     <button class="active" data-tab="0">计算器</button>
@@ -321,8 +319,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
     </div>
     <div class="tip"><span id="libCount">0</span> / 20 条</div>
   </div>
-</div>
-<div class="page" id="page-2">
+</div><div class="page" id="page-2">
     <div class="nt-result">
       <h1>消息预览（进窑+6分钟）</h1>
       <div class="nt-preview" id="fbPreview"><span class="ph">请选择生产线并点击单号</span></div>
@@ -470,8 +467,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
   </div>
 
   <div id="toast"></div>
-</div>
-<script>
+</div><script>
 (function(){
 var $=function(id){return document.getElementById(id);};
 var pad=function(n){return String(n).padStart(2,'0');};
@@ -545,9 +541,7 @@ function renderAtManage(){
 }
 $('atManageList').onclick=function(e){
   var del=e.target.closest('.x');
-  if(del){saveAtLib(atLib.filter(function(n){return n!==del.dataset.delat;}));renderAtManage();}
-};
-function parseAtNames(raw){
+  if(del){savfunction parseAtNames(raw){
   var text=(raw||'').trim();
   if(!text) return [];
   if(text.indexOf('@')<0){return [text];}
@@ -1048,4 +1042,5 @@ function extractCodesFromText(text){
     clean = clean.replace(/\s+/g, ' ');
     if(looksLikeCode(clean)){
       var up2=clean.toUpperCase().trim();
-      if(!seen[up2]){seen[up2]=1;re
+      if(!seen[up2]){seen[up2]=1;reeAtLib(atLib.filter(function(n){return n!==del.dataset.delat;}));renderAtManage();}
+};
