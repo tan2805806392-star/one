@@ -250,4 +250,1244 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
         </div>
         <div class="field">
           <label>工艺单产量 <button class="clear" data-clear="proc">清空</button></label>
-          <
+          <input type="number" id="proc" inputmode="numeric" min="0" placeholder="目标">
+        </div>
+        <div class="field">
+          <label>喷墨机计数 <button class="clear" data-clear="ink">清空</button></label>
+          <input type="number" id="ink" inputmode="numeric" min="0" placeholder="当前">
+        </div>
+        <div class="field">
+          <label>砖型</label>
+          <select id="brick"><option value="1200x600">1200×600</option><option value="600x600">600×600</option></select>
+        </div>
+        <div class="field">
+          <label>压次 (9.0~10.8)</label>
+          <select id="press"></select>
+        </div>
+        <div class="field full">
+          <label>破损空位（分钟）</label>
+          <input type="number" id="broken" inputmode="numeric" min="0" value="0">
+          <div class="quick">
+            <button data-b="5">5</button><button data-b="7">7</button><button data-b="8">8</button><button data-b="9">9</button>
+            <button data-b="10">10</button><button data-b="12">12</button><button data-b="13">13</button><button data-b="14">14</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-reset" id="reset">重置</button>
+      <button class="btn-record" id="record" disabled>记录</button>
+    </div>
+    <div class="drawer">
+      <div class="drawer-head">
+        <span class="t">历史记录 <span class="n" id="hCount"></span></span>
+        <button class="clr" id="hisClear">清空</button>
+      </div>
+      <div id="hBody"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-1">
+    <div class="nt-result">
+      <h1>消息预览</h1>
+      <div class="nt-preview" id="ntPreview"><span class="ph">请选择生产线、工艺和单号</span></div>
+    </div>
+    <button class="big-copy" id="ntCopyBtn" disabled>一键复制</button>
+
+    <button class="recognize-btn" id="openRecognizeBtn"><span class="ic">📋</span> 识别单号</button>
+
+    <div class="card tight">
+      <div class="lbl">生产线</div>
+      <div class="circle-nums" id="ntLineGroup">
+        <button class="circle-num" data-v="1线">1</button>
+        <button class="circle-num" data-v="2线">2</button>
+        <button class="circle-num" data-v="3线">3</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <div style="flex:1">
+          <div class="lbl" style="margin-bottom:6px">工艺</div>
+          <div class="single-display" id="ntCraftShow">
+            <span class="text" id="ntCraftText">仿古</span><span class="arrow">▼</span>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div class="lbl" style="margin-bottom:6px">状态</div>
+          <div class="single-display" id="ntStatusShow">
+            <span class="text" id="ntStatusText">已转产</span><span class="arrow">▼</span>
+          </div>
+        </div>
+      </div>
+      <div class="lbl" style="margin-top:12px">单号（<span id="libName">1线库</span>）<button class="clear" id="clearLib" style="background:var(--danger)">清空本库</button></div>
+      <div class="code-grid" id="codeGrid"></div>
+      <div class="add-row">
+        <input type="text" id="newCode" placeholder="多个单号用逗号/顿号/换行分隔" maxlength="500">
+        <button id="addCodeBtn">添加</button>
+      </div>
+      <div class="tip"><span id="libCount">0</span> / 20 条</div>
+    </div>
+  </div>
+
+  <div class="page" id="page-2">
+    <div class="nt-result">
+      <h1>消息预览（进窑+6分钟）</h1>
+      <div class="nt-preview" id="fbPreview"><span class="ph">请选择生产线并点击单号</span></div>
+    </div>
+    <button class="big-copy" id="fbCopyBtn" disabled>一键复制</button>
+    <div class="card tight">
+      <div class="lbl">生产线</div>
+      <div class="circle-nums" id="fbLineGroup">
+        <button class="circle-num" data-v="1线">1</button>
+        <button class="circle-num" data-v="2线">2</button>
+        <button class="circle-num" data-v="3线">3</button>
+      </div>
+      <div class="lbl" style="margin-top:12px">单号（<span id="fbLibName">1线库</span>）</div>
+      <div class="code-grid" id="fbCodeGrid"></div>
+      <div class="lbl" style="margin-top:10px">各线复板</div>
+      <div class="fb-boxes" id="fbBoxes"></div>
+      <button class="chip sm" id="fbClear" style="width:100%;margin-top:8px;background:var(--danger-l);color:var(--danger);height:32px;border:none;border-radius:6px;font-weight:700;">清空全部复板</button>
+    </div>
+  </div>
+
+  <div class="page" id="page-3">
+    <div class="nt-result">
+      <h1>本次破损预览</h1>
+      <div class="nt-preview" id="bpPreview"><span class="ph">请先填写破损数量</span></div>
+    </div>
+    <button class="big-copy" id="bpCopyBtn" disabled>一键复制</button>
+    <div class="card tight">
+      <div class="time-picker" id="bpTimePicker">
+        <div class="time-col">
+          <button class="tp-btn" data-t="start" data-d="-1">−</button>
+          <div class="tp-show" id="bpStartV">00:00</div>
+          <button class="tp-btn" data-t="start" data-d="1">+</button>
+        </div>
+        <span class="time-sep">-</span>
+        <div class="time-col">
+          <button class="tp-btn" data-t="end" data-d="-1">−</button>
+          <div class="tp-show" id="bpEndV">00:00</div>
+          <button class="tp-btn" data-t="end" data-d="1">+</button>
+        </div>
+      </div>
+      <div class="time-refresh-bar">
+        <button class="time-refresh-btn" id="bpTimeRefresh"><span class="rt">🕐</span> 按当前时间刷新</button>
+      </div>
+      <div class="lbl">破损数量（全厂合计）</div>
+      <div class="bp-grid" id="bpItems"></div>
+      <div class="bp-actions">
+        <button class="btn-record" id="bpRecord">记录</button>
+        <button class="btn-clear" id="bpZero">清空输入</button>
+      </div>
+    </div>
+    <div class="card tight">
+      <div class="lbl">历史记录 <span id="bpRecCount" style="font-weight:400"></span><button class="clear" id="bpRecClear" style="background:var(--danger)">清空记录</button></div>
+      <div id="bpRecList"></div>
+    </div>
+  </div>
+
+  <!-- 识别单号弹窗 -->
+  <div class="mask" id="recognizeMask">
+    <div class="modal">
+      <h2>识别单号</h2>
+      <div class="modal-body">
+        <div class="ocr-tip">
+          把转产消息<b>粘贴</b>到下面输入框（长按输入框→粘贴），点「提取单号」后勾选确认再添加。
+        </div>
+        <textarea id="ocrInput" placeholder="粘贴或输入文字…"></textarea>
+        <button class="ocr-parse-btn" id="parseBtn"><span>🔍</span> 提取单号</button>
+        <div id="ocrResultWrap" style="margin-top:12px;display:none;">
+          <div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:6px;">提取结果（点击可勾选/取消）</div>
+          <div class="ocr-result-list" id="ocrResultList"></div>
+          <div style="font-size:11px;color:var(--sub);margin-top:6px;">确认后将添加到【<span id="ocrTargetLine2">1线</span>】单号库</div>
+<div style="font-size:11px;color:var(--sub);margin-top:6px;">确认后将添加到【<span id="ocrTargetLine2">1线</span>】单号库</div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="cancel" id="recognizeCancel">取消</button>
+        <button class="ok" id="recognizeConfirm" disabled>确认添加</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mask" id="lineMask">
+    <div class="modal" style="max-width:300px">
+      <h2>选择生产线</h2>
+      <div class="modal-body" style="padding:10px 0;">
+        <div class="circle-nums" style="justify-content:center;gap:16px;" id="lineMaskGroup">
+          <button class="circle-num" data-v="1线" style="width:60px;height:60px;font-size:24px;">1</button>
+          <button class="circle-num" data-v="2线" style="width:60px;height:60px;font-size:24px;">2</button>
+          <button class="circle-num" data-v="3线" style="width:60px;height:60px;font-size:24px;">3</button>
+        </div>
+      </div>
+      <div class="modal-foot"><button class="cancel" id="lineMaskCancel">取消</button></div>
+    </div>
+  </div>
+
+  <div class="mask" id="copyMask">
+    <div class="modal">
+      <h2 id="copyMaskTitle">选择</h2>
+      <div class="modal-body">
+        <div id="copyMaskLineWrap">
+          <div style="font-size:13px;font-weight:700;color:var(--sub);margin-bottom:8px">生产线</div>
+          <div class="circle-nums" style="justify-content:center;gap:16px;" id="copyMaskLineGroup">
+            <button class="circle-num" data-v="1线" style="width:60px;height:60px;font-size:24px;">1</button>
+            <button class="circle-num" data-v="2线" style="width:60px;height:60px;font-size:24px;">2</button>
+            <button class="circle-num" data-v="3线" style="width:60px;height:60px;font-size:24px;">3</button>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--sub);margin-top:16px;margin-bottom:8px">@ 人（可选）</div>
+        <div class="at-grid" id="copyMaskAtGrid"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="cancel" id="copyMaskCancel">取消</button>
+        <button class="ok" id="copyMaskOk">复制</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mask" id="selectMask">
+    <div class="modal" style="max-width:300px">
+      <h2 id="selectMaskTitle">选择</h2>
+      <div class="modal-body" id="selectMaskBody" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </div>
+
+  <div class="mask" id="atMask">
+    <div class="modal">
+      <h2>@ 人库</h2>
+      <div class="modal-body">
+        <div id="atManageList"></div>
+        <div class="add-row" style="margin-top:10px">
+          <input type="text" id="newAtName" placeholder="例如：@张三 @李 四 @王五，六（按微信@格式完整保留）" maxlength="500">
+          <button id="addAtNameBtn">添加</button>
+        </div>
+        <div style="font-size:11px;color:var(--sub);margin-top:8px;line-height:1.6;">
+          💡 每个 <b>@</b> 到下一个 <b>@</b> 之间的内容整体作为一个名字，空格、逗号、点都完整保留。
+        </div>
+      </div>
+      <div class="modal-foot"><button class="ok" id="atMaskClose">关闭</button></div>
+    </div>
+  </div>
+
+  <div class="alert-mask" id="alertMask">
+    <div class="alert-box">
+      <h2>🚨 停机时间到！</h2>
+      <p id="alertMsg">请立刻检查压机状态！</p>
+      <button onclick="document.getElementById('alertMask').classList.remove('open')">我知道了</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+
+<script>
+(function(){
+var $=function(id){return document.getElementById(id);};
+var pad=function(n){return String(n).padStart(2,'0');};
+var nowStr=function(){var d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes());};
+var nowPlus=function(min){var d=new Date();d.setMinutes(d.getMinutes()+min);return pad(d.getHours())+':'+pad(d.getMinutes());};
+var ls={
+  get:function(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}},
+  set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}}
+};
+function copyText(text,cb){
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).then(cb).catch(function(){fb(text,cb);});
+  }else fb(text,cb);
+}
+function fb(text,cb){
+  var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb();}catch(e){alert('复制失败：\n'+text);}
+  document.body.removeChild(ta);
+}
+function atsStr(arr){return arr&&arr.length?arr.map(function(n){return '@'+n;}).join(' '):'';}
+
+var toastTimer=null;
+function toast(msg,isErr){
+  var t=$('toast');
+  t.textContent=msg;
+  t.className='show'+(isErr?' err':'');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.className='';},2200);
+}
+
+var navBtns=document.querySelectorAll('.nav-icons button');
+var currentTab=0;
+function switchTab(index){
+  if(index<0||index>3)return;
+  currentTab=index;
+  navBtns.forEach(function(b,i){b.classList.toggle('active',i===index);});
+  document.querySelectorAll('.page').forEach(function(p,i){p.classList.toggle('active',i===index);});
+  window.scrollTo(0,0);
+}
+navBtns.forEach(function(btn){btn.onclick=function(){switchTab(parseInt(btn.dataset.tab));};});
+
+var KA='ct_at',atLib=ls.get(KA,[]);
+if(!Array.isArray(atLib))atLib=[];
+function saveAtLib(a){ls.set(KA,a);atLib=a;}
+function renderAtManage(){
+  var el=$('atManageList');
+  if(!atLib.length){el.innerHTML='<div style="padding:10px 0;text-align:center;color:var(--sub)">暂无@人</div>';return;}
+  el.innerHTML=atLib.map(function(name){
+    return '<div class="at-item"><span class="nm">@'+name+'</span><span class="x" data-delat="'+name+'">×</span></div>';
+  }).join('');
+}
+$('atManageList').onclick=function(e){
+  var del=e.target.closest('.x');
+  if(del){saveAtLib(atLib.filter(function(n){return n!==del.dataset.delat;}));renderAtManage();}
+};
+
+// 核心修复：按 @ 分割，每个 @ 到下一个 @ 之间的内容整体作为一个名字
+function parseAtNames(raw){
+  var text=(raw||'').trim();
+  if(!text) return [];
+  if(text.indexOf('@')<0){
+    return [text];
+  }
+  var names=[];
+  var parts=text.split('@');
+  for(var i=1;i<parts.length;i++){
+    var seg=parts[i];
+    seg=seg.replace(/^[\s,，、;；]+/,'').replace(/[\s,，、;；]+$/,'').trim();
+    if(!seg) continue;
+    names.push(seg);
+  }
+  var seen={},out=[];
+  names.forEach(function(n){
+    if(seen[n])return;
+    seen[n]=1;
+    out.push(n);
+  });
+  return out;
+}
+
+$('addAtNameBtn').onclick=function(){
+  var inp=$('newAtName');
+  var raw=inp.value;
+  if(!raw.trim())return;
+
+  var parts=parseAtNames(raw);
+  if(!parts.length){
+    toast('没识别到 @ 名字',true);
+    return;
+  }
+
+  var added=0,skipped=0;
+  parts.forEach(function(name){
+    if(atLib.indexOf(name)>=0){skipped++;return;}
+    atLib.push(name);
+    added++;
+  });
+  saveAtLib(atLib);
+  inp.value='';
+  renderAtManage();
+
+  var msg=[];
+  if(added>0) msg.push('已添加 '+added+' 个');
+  if(skipped>0) msg.push('跳过 '+skipped+' 个已存在');
+  toast(msg.join('，')||'无新增');
+};
+$('newAtName').addEventListener('keydown',function(e){if(e.key==='Enter')$('addAtNameBtn').click();});
+$('fabAt').onclick=function(){renderAtManage();$('atMask').classList.add('open');};
+$('atMaskClose').onclick=function(){$('atMask').classList.remove('open');};
+
+var copyMaskMode='',copyMaskLine='',copyMaskAts=[],copyMaskCb=null;
+function openCopyMask(mode,line,ats,cb){
+  copyMaskMode=mode;copyMaskLine=line||'1线';copyMaskAts=(ats||[]).slice();copyMaskCb=cb;
+  $('copyMaskTitle').textContent=(mode==='calc'?'选择生产线和@人':'选择 @ 人');
+  $('copyMaskLineWrap').style.display=(mode==='calc')?'block':'none';
+  if(mode==='calc'){
+    $('copyMaskLineGroup').querySelectorAll('.circle-num').forEach(function(b){
+      b.classList.toggle('on',b.dataset.v===copyMaskLine);
+    });
+  }
+  renderCopyMaskAts();
+  $('copyMask').classList.add('open');
+}
+function renderCopyMaskAts(){
+  var el=$('copyMaskAtGrid');
+  if(!atLib.length){el.innerHTML='<div class="at-none">@ 人库为空，点顶部 @ 添加</div>';return;}
+  el.innerHTML=atLib.map(function(n){
+    return '<button class="at-chip '+(copyMaskAts.indexOf(n)>=0?'on':'')+'" data-at="'+n+'">@'+n+'</button>';
+  }).join('');
+}
+$('copyMaskAtGrid').onclick=function(e){
+  var b=e.target.closest('[data-at]');if(!b)return;
+  var n=b.dataset.at;
+  var i=copyMaskAts.indexOf(n);
+  if(i>=0)copyMaskAts.splice(i,1);else copyMaskAts.push(n);
+  renderCopyMaskAts();
+};
+$('copyMaskLineGroup').onclick=function(e){
+  var b=e.target.closest('.circle-num');if(!b)return;
+  copyMaskLine=b.dataset.v;
+  this.querySelectorAll('.circle-num').forEach(function(x){x.classList.toggle('on',x===b);});
+};
+$('copyMaskCancel').onclick=function(){$('copyMask').classList.remove('open');};
+$('copyMaskOk').onclick=function(){
+  if(copyMaskCb){
+    var line=copyMaskMode==='calc'?copyMaskLine:null;
+    copyMaskCb({line:line,ats:copyMaskAts.slice()});
+  }
+  $('copyMask').classList.remove('open');
+};
+
+var lineMaskCb=null;
+function openLineMask(cb){
+  lineMaskCb=cb;
+  $('lineMaskGroup').querySelectorAll('.circle-num').forEach(function(b){b.classList.remove('on');});
+  $('lineMask').classList.add('open');
+}
+$('lineMaskGroup').onclick=function(e){
+  var b=e.target.closest('.circle-num');if(!b)return;
+  this.querySelectorAll('.circle-num').forEach(function(x){x.classList.toggle('on',x===b);});
+  setTimeout(function(){
+    $('lineMask').classList.remove('open');
+    if(lineMaskCb)lineMaskCb(b.dataset.v);
+  },150);
+};
+$('lineMaskCancel').onclick=function(){$('lineMask').classList.remove('open');};
+
+var selectMaskCb=null;
+function openSelectMask(title,options,currentVal,cb){
+  selectMaskCb=cb;
+  $('selectMaskTitle').textContent=title;
+  var body=$('selectMaskBody');
+  body.innerHTML=options.map(function(opt){
+    var isOn=opt===currentVal;
+    return '<div class="item" data-v="'+opt+'" style="padding:14px;text-align:center;font-size:15px;font-weight:700;background:'+(isOn?'var(--accent)':'var(--card2)')+';color:'+(isOn?'#fff':'var(--text)')+';border-radius:8px;cursor:pointer;">'+opt+'</div>';
+  }).join('');
+  body.onclick=function(e){
+    var item=e.target.closest('.item');if(!item)return;
+    $('selectMask').classList.remove('open');
+    if(selectMaskCb)selectMaskCb(item.dataset.v);
+  };
+  $('selectMask').classList.add('open');
+}
+
+/* ===== 计算器 ===== */
+var KD='ct_data',KH='ct_his',HMAX=20;
+var DEF={press:'10.1',brick:'1200x600',proc:'',ink:'',broken:0};
+var sH=0,sM=0,last=null,cTimer=null;
+
+var KALERT='ct_alerted';
+var alertedIds=ls.get(KALERT,{});
+if(typeof alertedIds!=='object'||alertedIds===null)alertedIds={};
+function saveAlerted(){ls.set(KALERT,alertedIds);}
+
+function num(el){var v=el.value.trim();if(v==='')return null;var n=Number(v);return isFinite(n)?Math.max(0,n):null;}
+function fmtTime(m){var t=((m%1440)+1440)%1440;return pad(Math.floor(t/60))+':'+pad(Math.floor(t%60));}
+function fmtMin(m){return m.toFixed(1);}
+
+for(var i=0;i<19;i++){var v=(9+i*0.1).toFixed(1);$('press').add(new Option(v,v));}
+
+function initCalcData(){
+  var d=ls.get(KD,DEF);
+  $('press').value=d.press;
+  $('brick').value=d.brick;
+  $('proc').value=d.proc===null||d.proc===undefined?'':d.proc;
+  $('ink').value=d.ink===null||d.ink===undefined?'':d.ink;
+  $('broken').value=d.broken===null||d.broken===undefined?0:d.broken;
+}
+
+function refreshNow(){var d=new Date();sH=d.getHours();sM=d.getMinutes();$('nowTime').textContent=pad(sH)+':'+pad(sM);recalc();}
+function readData(){
+  var proc=num($('proc')),ink=num($('ink'));
+  if(proc!==null&&ink!==null&&ink>proc){ink=proc;$('ink').value=proc;}
+  return{press:parseFloat($('press').value)||10.1,brick:$('brick').value,proc:proc,ink:ink,broken:num($('broken'))||0};
+}
+function recalc(){
+  var d=readData();ls.set(KD,d);
+  var ppm=d.brick==='1200x600'?d.press*2:d.press*4;
+  if(d.proc===null||d.ink===null){
+    $('finish').textContent='--:--';$('stop').textContent='--:--';
+    $('total').textContent='--';$('remain').textContent='--';
+    last=null;$('record').disabled=true;$('copy').disabled=true;return;
+  }
+  var remain=Math.max(0,d.proc-d.ink),theo=ppm>0?remain/ppm:0,totalMin=theo+d.broken;
+  var startTotal=sH*60+sM,finishTotal=startTotal+totalMin,stopTotal=finishTotal-50;
+  $('finish').textContent=fmtTime(finishTotal);
+  $('stop').textContent=fmtTime(stopTotal);
+  $('total').textContent=fmtMin(totalMin);
+  $('remain').textContent=d.proc-d.ink>0?remain:'已完成';
+  var _nd=new Date();
+  var _mid=new Date(_nd.getFullYear(),_nd.getMonth(),_nd.getDate()).getTime();
+  last={finish:fmtTime(finishTotal),stop:fmtTime(stopTotal),total:fmtMin(totalMin),
+    start:pad(sH)+':'+pad(sM),proc:d.proc,ink:d.ink,press:d.press,brick:d.brick,broken:d.broken,
+    remain:remain,ppm:ppm.toFixed(1),theo:theo.toFixed(1),
+    brickLabel:d.brick==='1200x600'?'1200×600':'600×600',
+    finishTs:_mid+finishTotal*60000, recordTs:Date.now()};
+  $('record').disabled=false;$('copy').disabled=false;
+}
+
+function renderHis(){
+  var list=ls.get(KH,[]);
+  $('hCount').textContent=list.length?'（'+list.length+'）':'';
+  var body=$('hBody');
+  if(!list.length){
+    body.innerHTML='<div style="font-size:14px;padding:16px 0;text-align:center;color:var(--sub)">暂无记录</div>';
+    return;
+  }
+  var nowMs=Date.now();
+
+  var activeList=[],doneList=[],triggerAlert=null;
+
+  list.forEach(function(it){
+    var fTs = it.finishTs || (nowMs + 99999999); 
+    var stopTs = fTs - 50*60000;
+    var recTs = it.recordTs || (fTs - (parseInt(it.total)||0)*60000);
+    
+    var diffHours = (nowMs - recTs) / (1000 * 60 * 60);
+    
+    if (nowMs >= fTs || diffHours >= 24) {
+      doneList.push(it);
+    } else {
+      activeList.push(it);
+      if(!alertedIds[it.id]&&nowMs>=stopTs){
+        alertedIds[it.id]=true;
+        saveAlerted();
+        triggerAlert=it;
+      }
+    }
+  });
+
+  activeList.sort(function(a,b){
+    if (a.line === b.line && a.proc === b.proc) {
+      if (a.start !== b.start) return a.start < b.start ? 1 : -1; 
+      return a.id < b.id ? -1 : 1;
+    }
+    var d=(a.finishTs||0)-(b.finishTs||0);
+    if(d!==0) return d;
+    return a.id < b.id ? -1 : 1;
+  });
+
+  doneList.sort(function(a,b){
+    var d=(b.finishTs||0)-(a.finishTs||0);
+    return d!==0?d:(a.id<b.id?-1:1);
+  });
+
+  var sortedList=activeList.concat(doneList);
+
+  var html=sortedList.map(function(it){
+    var ft=it.finish.split(':');
+    var totM=parseInt(ft[0],10)*60+parseInt(ft[1],10)-120;
+    var wxTime=fmtTime(totM);
+    var fTs=it.finishTs || (nowMs + 99999999);
+    var stopTs=fTs-50*60000;
+    var wxTs=fTs-120*60000;
+    
+    var cls='',stamp='';
+    
+    if(nowMs>=fTs){
+      cls='is-done';
+      stamp='<div class="stamp-done">已完成</div>';
+    }else if(nowMs>=stopTs){
+      cls='warn-red';
+    }else if(nowMs>=wxTs){
+      cls='warn-orange';
+    }
+    
+    return '<div class="hitem '+cls+'">'+
+      stamp+
+      '<div class="header-row">'+
+        '<span class="wx-time">发消息 <b>'+wxTime+'</b></span>'+
+        '<span class="line-tag">['+(it.line||'1线')+']</span>'+
+        '<span>记录时间 <b>'+it.start+'</b></span>'+
+      '</div>'+
+      '<div class="hgrid">'+
+        '<div class="cell"><span class="k">预计到达</span><span class="v">'+it.finish+'</span></div>'+
+        '<div class="cell pick" data-proc="'+it.proc+'"><span class="k">工艺单产量</span><span class="v">'+it.proc+'</span></div>'+
+        '<div class="cell stop-warn"><span class="k">压机停机</span><span class="v">'+it.stop+'</span></div>'+
+        '<div class="cell"><span class="k">剩余片数</span><span class="v">'+it.remain+'</span></div>'+
+      '</div>'+
+      '<div class="hmeta">'+
+        '<span>'+it.brickLabel+'</span><span>压次 '+it.press+'</span><span>喷墨 '+it.ink+'</span>'+
+        '<span>合计 '+it.total+' 分</span><span>破损 '+it.broken+' 分</span>'+
+      '</div>'+
+      '<div class="del" data-id="'+it.id+'">×</div>'+
+    '</div>';
+  }).join('');
+  body.innerHTML=html;
+
+  if(triggerAlert){
+    $('alertMsg').innerHTML='【'+(triggerAlert.line||'1线')+'】的压机停机时间到了！<br><br>预计停机时间：'+triggerAlert.stop;
+    $('alertMask').classList.add('open');
+    if(navigator.vibrate){navigator.vibrate([500,200,500]);}
+  }
+}
+
+$('nowBox').onclick=function(){
+  refreshNow(); 
+  var rfTxt = $('refreshTxt');
+  rfTxt.textContent = '已刷新';
+  rfTxt.style.color = '#fff';
+  rfTxt.style.background = 'var(--accent)';
+  var hItems = document.querySelectorAll('.hitem');
+  hItems.forEach(function(el) {
+    el.classList.remove('record-flash');
+    void el.offsetWidth;
+    el.classList.add('record-flash');
+  });
+  renderHis();
+  setTimeout(function(){
+    rfTxt.textContent = '自动';
+    rfTxt.style.color = 'var(--accent)';
+    rfTxt.style.background = '#fff';
+  }, 300);
+};
+
+setInterval(function(){
+  refreshNow();
+  if(document.querySelectorAll('.hitem').length>0)renderHis();
+}, 10000);
+
+function addHis(rec,line){
+  var list=ls.get(KH,[]);
+  rec.line=line;rec.id=Date.now()+'_'+Math.random().toString(36).slice(2,6);
+  rec.recordTs = Date.now();
+  list.unshift(rec);if(list.length>HMAX)list.length=HMAX;
+  ls.set(KH,list);
+  renderHis();
+}
+
+['proc','ink','broken'].forEach(function(id){$(id).addEventListener('input',recalc);});
+['press','brick'].forEach(function(id){$(id).addEventListener('change',recalc);});
+$('broken').addEventListener('input',function(){
+  document.querySelectorAll('.quick button').forEach(function(x){x.classList.remove('on');});
+});
+document.querySelectorAll('.clear[data-clear]').forEach(function(el){
+  el.onclick=function(){$(el.dataset.clear).value='';recalc();};
+});
+document.querySelectorAll('.quick button').forEach(function(b){
+  b.onclick=function(){
+    $('broken').value=b.dataset.b;recalc();
+    document.querySelectorAll('.quick button').forEach(function(x){x.classList.toggle('on',x===b);});
+  };
+});
+
+$('reset').onclick=function(){$('proc').value='';$('ink').value='';recalc();};
+
+$('copy').onclick=function(){
+  if(!last)return;
+  refreshNow();
+  openCopyMask('calc','1线',[],function(res){
+    var atStr=atsStr(res.ats);
+    var text=res.line+'预计'+last.finish+'到达规定产量，压机停机时间'+last.stop+(atStr?' '+atStr:'');
+    copyText(text,function(){
+      var btn=$('copy');btn.classList.add('done');btn.textContent='✓ 已复制';
+      clearTimeout(cTimer);cTimer=setTimeout(function(){btn.classList.remove('done');btn.textContent='📋 复制';},1500);
+    });
+  });
+};
+$('record').onclick=function(){
+  if(!last)return;
+  refreshNow();
+  openLineMask(function(line){
+    addHis(Object.assign({},last),line);
+  });
+};
+
+$('hisClear').onclick=function(e){
+  e.stopPropagation();
+  ls.set(KH,[]);
+  alertedIds={};
+  saveAlerted();
+  renderHis();
+};
+$('hBody').onclick=function(e){
+  var del=e.target.closest('.del');
+  if(del){ls.set(KH,ls.get(KH,[]).filter(function(i){return i.id!==del.dataset.id;}));renderHis();return;}
+  var pick=e.target.closest('.cell.pick');
+  if(pick){
+    $('proc').value=pick.dataset.proc;
+    recalc();
+    $('proc').classList.add('highlight-pink');
+    setTimeout(function(){$('proc').classList.remove('highlight-pink');},800);
+  }
+};
+
+/* ===== 单号库 ===== */
+var KL='ct_lib',KC='ct_craft',LIBMAX=20;
+function getLib(){var l=ls.get(KL,{});['1线','2线','3线'].forEach(function(k){if(!Array.isArray(l[k]))l[k]=[];});return l;}
+function saveLib(l){ls.set(KL,l);}
+function getCraftMap(){return ls.get(KC,{'1线':'仿古','2线':'仿古','3线':'仿古'});}
+
+/* ===== 转产 ===== */
+var ntLine='1线',ntCraft='仿古',ntStatus='已转产',selCode='';
+var ntAts=[];var ntTimer=null;
+
+function switchNtLine(line){
+  ntLine=line;selCode='';
+  var craft=getCraftMap()[line]||'仿古';
+  ntCraft=craft;
+  $('ntLineGroup').querySelectorAll('.circle-num').forEach(function(b){b.classList.toggle('on',b.dataset.v===line);});
+  $('ntCraftText').textContent=ntCraft;
+  $('libName').textContent=line+'库';
+  renderNtCodeGrid();updateNtPreview();
+}
+$('ntLineGroup').onclick=function(e){
+  var b=e.target.closest('.circle-num');if(!b)return;
+  switchNtLine(b.dataset.v);
+};
+$('ntCraftShow').onclick=function(){
+  openSelectMask('选择工艺',['仿古','柔光','抛釉'],ntCraft,function(val){
+    ntCraft=val;var m=getCraftMap();m[ntLine]=ntCraft;ls.set(KC,m);
+    $('ntCraftText').textContent=ntCraft;updateNtPreview();
+  });
+};
+$('ntStatusShow').onclick=function(){
+  openSelectMask('选择状态',['已转产','已换文件'],ntStatus,function(val){
+    ntStatus=val;$('ntStatusText').textContent=ntStatus;updateNtPreview();
+  });
+};
+function renderNtCodeGrid(){
+  var lib=getLib(),arr=lib[ntLine]||[];
+  $('libCount').textContent=arr.length;
+  var el=$('codeGrid');
+  if(!arr.length){el.innerHTML='<div class="code-empty">该线暂无单号，下方添加</div>';return;}
+  el.innerHTML=arr.map(function(c){
+    return '<span class="code-chip '+(c===selCode?'on':'')+'" data-code="'+c+'">'+c+'<span data-delcode="'+c+'" style="margin-left:6px;font-weight:400;opacity:.6">×</span></span>';
+  }).join('');
+}
+$('codeGrid').onclick=function(e){
+  var del=e.target.closest('[data-delcode]');
+  if(del){
+    e.stopPropagation();
+    var lib=getLib();lib[ntLine]=lib[ntLine].filter(function(c){return c!==del.dataset.delcode;});
+    if(selCode===del.dataset.delcode)selCode='';
+    saveLib(lib);renderNtCodeGrid();renderFbCodeGrid();updateNtPreview();
+    return;
+  }
+  var chip=e.target.closest('[data-code]');
+  if(chip){selCode=chip.dataset.code;renderNtCodeGrid();updateNtPreview();}
+};
+$('addCodeBtn').onclick=function(){
+  var input=$('newCode');
+  var raw=input.value.trim();
+  if(!raw)return;
+  var parts=raw.split(/[,，、;；\n\r]+/).map(function(s){
+    return s.trim().replace(/\s+/g,' ');
+  }).filter(function(s){return s;});
+  if(!parts.length)return;
+
+  var lib=getLib();
+  var lines=['1线','2线','3线'];
+  var added=0, skipped=0, full=false;
+  var seen={};
+  var lastAdded='';
+
+  parts.forEach(function(code){
+    var c=code.toUpperCase();
+    if(seen[c])return;
+    seen[c]=true;
+    for(var i=0;i<lines.length;i++){
+      if(lib[lines[i]].indexOf(c)>=0){skipped++;return;}
+    }
+    if(lib[ntLine].length>=LIBMAX){full=true;return;}
+    lib[ntLine].push(c);
+    lastAdded=c;
+    added++;
+  });
+
+  if(added>0){
+    saveLib(lib);
+    selCode=lastAdded;
+  }
+  input.value='';
+  renderNtCodeGrid();
+  renderFbCodeGrid();
+  updateNtPreview();
+  if(full){alert('该线单号库已满（最多20条），部分单号未添加');}
+};
+$('newCode').addEventListener('keydown',function(e){if(e.key==='Enter')$('addCodeBtn').click();});
+$('clearLib').onclick=function(){
+  var lib=getLib();lib[ntLine]=[];
+  saveLib(lib);selCode='';renderNtCodeGrid();renderFbCodeGrid();updateNtPreview();
+};
+function updateNtPreview(){
+  var el=$('ntPreview');
+  if(!selCode){el.innerHTML='<span class="ph">请选择生产线、工艺和单号</span>';$('ntCopyBtn').disabled=true;return;}
+  var atStr=atsStr(ntAts);
+  el.innerHTML='<span class="hl">'+ntLine+nowStr()+'</span>'+ntCraft+selCode+'<span class="hl">'+ntStatus+'</span>，过喷墨房已做记号，下工序注意'+(atStr?' '+atStr:'');
+  $('ntCopyBtn').disabled=false;
+}
+$('ntCopyBtn').onclick=function(){
+  if(!selCode)return;
+  openCopyMask('nt',null,ntAts,function(res){
+    var atStr=atsStr(res.ats);
+    var text=ntLine+nowStr()+ntCraft+selCode+ntStatus+'，过喷墨房已做记号，下工序注意'+(atStr?' '+atStr:'');
+    copyText(text,function(){
+      var b=$('ntCopyBtn');b.classList.add('done');b.textContent='✓ 已复制到剪贴板';
+      clearTimeout(ntTimer);ntTimer=setTimeout(function(){b.classList.remove('done');b.textContent='一键复制';},1800);
+    });
+  });
+};
+
+/* ===== 识别单号（手动粘贴 + 提取，确认后添加） ===== */
+var ocrParsedCodes=[];
+
+function isNoiseLine(t){
+  return /工艺|转产|底釉|面釉|模具|商标|线上|喷墨房|注意|详见|不变|生产编号|下个版|编号[:：]|@/.test(t);
+}
+function looksLikeCode(t){
+  if(!t) return false;
+  if(/[\u4e00-\u9fa5]/.test(t)) return false; // 排除中文
+  // 允许纯字母数字、空格、横杠、点、下划线
+  if(!/^[A-Za-z0-9\-\s\._]+$/.test(t)) return false;
+  // 必须同时包含字母和数字（如 ABM31-612 或 526327 ABM31-612）
+  if(!/[A-Za-z]/.test(t) || !/\d/.test(t)) return false;
+  return true;
+}
+
+function extractCodesFromText(text){
+  var result=[], seen={};
+  if(!text) return result;
+  var CRAFT='抛釉|仿古|柔光|哑光|亮光|糖果釉|岩板|大板|微晶|通体';
+  var STATUS='已转产|已换文件|进窑|转产|已进窑';
+
+  var lines=text.split(/\r?\n/);
+  lines.forEach(function(line){
+    var t=line.trim();
+    if(!t) return;
+
+    // 1) 生产编号:XXX / 下个版编号:XXX / 编号:XXX
+    var m=t.match(/(?:生产编号|下个版编号|下个版|编号|单号|生产单号)\s*[:：]\s*(.+)$/);
+    if(m){
+      var v=m[1].trim().toUpperCase().replace(/[\u4e00-\u9fa5].*$/,'').trim();
+      if(v && !seen[v]){seen[v]=1;result.push({code:v,type:'编号'});}
+      return;
+    }
+
+    // 2) 整行内嵌：如 "1线21:55分，抛釉LP ROYAL CREMA KSA已转产进窑..."
+    var inlineRe=new RegExp('(?:'+CRAFT+')\\s*([A-Za-z0-9 \\-_\\.]{3,}?)\\s*(?:'+STATUS+'|，|,|。|$)', 'g');
+    var mi;
+    var foundInline=false;
+    while((mi=inlineRe.exec(t))){
+      var code=mi[1].trim().replace(/\s+/g,' ');
+      code=code.replace(new RegExp('\\s*(?:'+STATUS+').*$'),'').trim();
+      if(code && looksLikeCode(code)){
+        var up=code.toUpperCase();
+        if(!seen[up]){seen[up]=1;result.push({code:up,type:'单号'});}
+        foundInline=true;
+      }
+    }
+    if(foundInline) return;
+
+    // 3) 跳过噪音行
+    if(isNoiseLine(t)) return;
+
+    // 4) 整行是单号（去中文注释/括号）
+    var clean=t.replace(/[（(].*?[)）]/g,'').replace(/[\u4e00-\u9fa5].*$/,'').trim();
+    if(!clean) return;
+
+    // 针对 "526327  ABM31-612" 这种，去掉多余空格，整体保留
+    clean = clean.replace(/\s+/g, ' ');
+
+    if(looksLikeCode(clean)){
+      // 如果整行里包含多个空格分隔的独立块，但合起来有字母和数字，整体作为一个单号保留
+      // 例如: 526327 ABM31-612
+      var up2=clean.toUpperCase().trim();
+      if(!seen[up2]){seen[up2]=1;result.push({code:up2,type:'单号'});}
+    } else {
+      // 5) 行内嵌单号：如 "SF12-18 兴业商标"
+      var m2=clean.match(/[A-Za-z0-9]+(?:[\s\-_][A-Za-z0-9]+)+/g);
+      if(m2){
+        m2.forEach(function(code){
+          var c=code.toUpperCase().trim();
+          if(c.length>=4 && looksLikeCode(c) && !seen[c]){seen[c]=1;result.push({code:c,type:'单号'});}
+        });
+      }
+    }
+  });
+  return result;
+}
+
+function openRecognizeDialog(){
+  $('ocrInput').value='';
+  $('ocrResultWrap').style.display='none';
+  $('ocrResultList').innerHTML='';
+  ocrParsedCodes=[];
+  $('ocrTargetLine2').textContent=ntLine;
+  $('recognizeConfirm').disabled=true;
+  $('recognizeMask').classList.add('open');
+  setTimeout(function(){ $('ocrInput').focus(); },200);
+}
+
+$('openRecognizeBtn').onclick=openRecognizeDialog;
+
+function renderOcrResults(){
+  var el=$('ocrResultList');
+  el.innerHTML=ocrParsedCodes.map(function(item,idx){
+    return '<div class="ocr-result-item '+(item.checked?'':'off')+'" data-idx="'+idx+'">'+
+      '<div style="flex:1;min-width:0;"><div class="code">'+item.code+'</div><div class="type">'+item.type+'</div></div>'+
+      '<span class="chk">'+(item.checked?'✓':'')+'</span>'+
+    '</div>';
+  }).join('');
+  $('ocrResultWrap').style.display='block';
+  updateOcrConfirmBtn();
+}
+function updateOcrConfirmBtn(){
+  var any=ocrParsedCodes.some(function(i){return i.checked;});
+  $('recognizeConfirm').disabled=!any;
+}
+
+function parseAndPreview(text){
+  var codes=extractCodesFromText(text);
+  if(!codes.length){
+    toast('未识别到单号，请检查内容',true);
+    $('ocrResultWrap').style.display='none';
+    $('recognizeConfirm').disabled=true;
+    ocrParsedCodes=[];
+    return;
+  }
+  ocrParsedCodes=codes.map(function(c){return {code:c.code,type:c.type,checked:true};});
+  renderOcrResults();
+  toast('已提取 '+codes.length+' 个单号，请确认');
+}
+
+$('parseBtn').onclick=function(){
+  var text=$('ocrInput').value;
+  if(!text.trim()){toast('请输入或粘贴文字',true);return;}
+  parseAndPreview(text);
+};
+
+$('ocrResultList').onclick=function(e){
+  var item=e.target.closest('.ocr-result-item');if(!item)return;
+  var idx=parseInt(item.dataset.idx);
+  ocrParsedCodes[idx].checked=!ocrParsedCodes[idx].checked;
+  renderOcrResults();
+};
+
+$('recognizeCancel').onclick=function(){$('recognizeMask').classList.remove('open');};
+
+$('recognizeConfirm').onclick=function(){
+  var codes=ocrParsedCodes.filter(function(i){return i.checked;}).map(function(i){return i.code;});
+  if(!codes.length)return;
+
+  var lib=getLib();
+  var linesArr=['1线','2线','3线'];
+  var added=0, skipped=0, full=false, lastAdded='';
+  codes.forEach(function(code){
+    var c=code.toUpperCase();
+    for(var i=0;i<linesArr.length;i++){
+      if(lib[linesArr[i]].indexOf(c)>=0){skipped++;return;}
+    }
+    if(lib[ntLine].length>=LIBMAX){full=true;return;}
+    lib[ntLine].push(c);
+    lastAdded=c;
+    added++;
+  });
+  if(added>0){
+    saveLib(lib);
+    selCode=lastAdded;
+  }
+  $('recognizeMask').classList.remove('open');
+  renderNtCodeGrid();
+  renderFbCodeGrid();
+  updateNtPreview();
+
+  var parts=[];
+  if(added>0) parts.push('已添加 '+added+' 个到'+ntLine+'库');
+  if(skipped>0) parts.push('跳过 '+skipped+' 个已存在');
+  if(full) parts.push('库已满未加完');
+  if(!parts.length) parts.push('无新增单号');
+  toast(parts.join('，'), full);
+};
+
+/* ===== 复板 ===== */
+var KF='ct_fb_sel';
+var fbSel=ls.get(KF,{'1线':[],'2线':[],'3线':[]});
+if(!fbSel['1线'])fbSel={'1线':[],'2线':[],'3线':[]};
+var fbAts=[];var fbCurLine='1线';var fbTimer=null;
+function saveFbSel(){ls.set(KF,fbSel);}
+function renderFbLine(){
+  $('fbLineGroup').querySelectorAll('.circle-num').forEach(function(b){b.classList.toggle('on',b.dataset.v===fbCurLine);});
+  $('fbLibName').textContent=fbCurLine+'库';
+}
+$('fbLineGroup').onclick=function(e){
+  var b=e.target.closest('.circle-num');if(!b)return;
+  fbCurLine=b.dataset.v;renderFbLine();renderFbCodeGrid();
+};
+function renderFbCodeGrid(){
+  var lib=getLib(),arr=lib[fbCurLine]||[];
+  var el=$('fbCodeGrid');
+  if(!arr.length){el.innerHTML='<div class="code-empty">该线暂无单号，去「转产」添加</div>';return;}
+  var used=fbSel[fbCurLine]||[];
+  el.innerHTML=arr.map(function(c){
+    return '<span class="code-chip '+(used.indexOf(c)>=0?'on':'')+'" data-fbcode="'+c+'">'+c+'</span>';
+  }).join('');
+}
+$('fbCodeGrid').onclick=function(e){
+  var chip=e.target.closest('[data-fbcode]');if(!chip)return;
+  var code=chip.dataset.fbcode;
+  var arr=fbSel[fbCurLine]||[];
+  var idx=arr.indexOf(code);
+  if(idx>=0)arr.splice(idx,1);else arr.push(code);
+  fbSel[fbCurLine]=arr;
+  saveFbSel();renderFbCodeGrid();renderFbBoxes();updateFbPreview();
+};
+function renderFbBoxes(){
+  $('fbBoxes').innerHTML=['1线','2线','3线'].map(function(line){
+    var arr=fbSel[line]||[],has=arr.length>0;
+    var body=has?'复板'+arr.join('和'):'（空）';
+    return '<div class="fb-box '+(has?'has':'')+'">'+
+      '<div class="fb-box-hd"><span>'+line+'</span><span>'+(has?arr.length+' 条':'')+'</span></div>'+
+      '<div class="fb-box-body '+(has?'':'none')+'">'+body+'</div>'+
+    '</div>';
+  }).join('');
+}
+$('fbClear').onclick=function(){
+  fbSel={'1线':[],'2线':[],'3线':[]};
+  saveFbSel();renderFbCodeGrid();renderFbBoxes();updateFbPreview();
+};
+function buildFbText(withTime,ats){
+  var parts=[];
+  var atStr=atsStr(ats);
+  if(atStr)parts.push(atStr);
+['1线','2线','3线'].forEach(function(line){
+    var arr=fbSel[line]||[];
+    if(arr.length)parts.push(line+'复板'+arr.join('和'));
+  });
+  if(withTime&&parts.length)parts.push('预计'+nowPlus(6)+'进窑，注意捡砖');
+  return parts.join('\n');
+}
+function updateFbPreview(){
+  var el=$('fbPreview');
+  var text=buildFbText(true,fbAts);
+  if(!text){el.innerHTML='<span class="ph">请选择生产线并点击单号</span>';$('fbCopyBtn').disabled=true;return;}
+  el.textContent=text;
+  $('fbCopyBtn').disabled=false;
+}
+$('fbCopyBtn').onclick=function(){
+  openCopyMask('fb',null,fbAts,function(res){
+    var text=buildFbText(true,res.ats);
+    if(!text)return;
+    copyText(text,function(){
+      var b=$('fbCopyBtn');b.classList.add('done');b.textContent='✓ 已复制到剪贴板';
+      clearTimeout(fbTimer);fbTimer=setTimeout(function(){b.classList.remove('done');b.textContent='一键复制';},1800);
+    });
+  });
+};
+
+/* ===== 破损 ===== */
+var KP='ct_po',KPREC='ct_po_rec',KBP_TIME='ct_bp_time';
+var PO_NAMES=['色卡','滴墨','缺角','烂砖','缺釉','分层','喷墨不良','断砖','开边砖','落脏'];
+var poData=ls.get(KP,{});
+var poRecs=ls.get(KPREC,[]);
+if(!Array.isArray(poRecs))poRecs=[];
+var bpTimer=null;
+
+PO_NAMES.forEach(function(n){if(typeof poData[n]!=='number')poData[n]=0;});
+
+var bpTimeCache = ls.get(KBP_TIME, null);
+var bpStartH=0, bpEndH=0;
+if(bpTimeCache && typeof bpTimeCache.startH==='number'){
+  bpStartH=bpTimeCache.startH;
+  bpEndH=bpTimeCache.endH;
+} else {
+  var now=new Date();
+  bpStartH=now.getHours();
+  bpEndH=now.getHours();
+  ls.set(KBP_TIME, {startH:bpStartH, endH:bpEndH});
+}
+
+function saveBpTime(){ ls.set(KBP_TIME, {startH:bpStartH, endH:bpEndH}); }
+function updateBpTimeDisplay(){
+  $('bpStartV').textContent=pad(bpStartH)+':00';
+  $('bpEndV').textContent=pad(bpEndH)+':00';
+  saveBpTime();
+}
+function refreshBpTimeByNow(){
+  var h = new Date().getHours();
+  bpStartH = (h - 1 + 24) % 24;
+  bpEndH   = (h + 1) % 24;
+  updateBpTimeDisplay();
+  updateBpPreview();
+}
+
+function renderBpItems(){
+  var el=$('bpItems');
+  el.innerHTML=PO_NAMES.map(function(name){
+    var v=poData[name]||0;
+    return '<div class="bp-item '+(v>0?'has':'')+'" data-name="'+name+'">'+
+      '<span class="bp-name">'+name+'</span>'+
+      '<div class="bp-controls">'+
+        '<button class="bp-btn" data-act="minus">−</button>'+
+        '<input class="bp-val" type="number" inputmode="numeric" min="0" value="'+v+'">'+
+        '<button class="bp-btn" data-act="plus">+</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function buildBpText(){
+  var startV=$('bpStartV').textContent,endV=$('bpEndV').textContent;
+  var lines=[startV+'-'+endV];
+  PO_NAMES.forEach(function(n){
+    var v=poData[n]||0;
+    if(v>0)lines.push(n+' '+v+'片');
+  });
+  return lines.join('\n');
+}
+
+function hasBpData(){
+  var has=false;
+  PO_NAMES.forEach(function(n){if((poData[n]||0)>0)has=true;});
+  return has;
+}
+
+function updateBpPreview(){
+  var el=$('bpPreview');
+  if(!hasBpData()){
+    el.innerHTML='<span class="ph">请先填写破损数量</span>';
+    $('bpCopyBtn').disabled=true;
+    return;
+  }
+  var text=buildBpText();
+  el.innerHTML=text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/(\d+)/g,'<span class="hl">$1</span>')
+    .replace(/\n/g,'<br>');
+  $('bpCopyBtn').disabled=false;
+}
+
+function clearBpInput(){
+  PO_NAMES.forEach(function(n){poData[n]=0;});
+  ls.set(KP,poData);
+  renderBpItems();
+  updateBpPreview();
+}
+
+function renderBpRecs(){
+  var el=$('bpRecList');
+  $('bpRecCount').textContent=poRecs.length?'（'+poRecs.length+'）':'';
+  if(!poRecs.length){el.innerHTML='<div class="bp-empty">暂无记录</div>';return;}
+  var total=0;
+  poRecs.forEach(function(r){total+=r.total||0;});
+  var html='<div class="bp-total">合计破损 <span style="font-size:16px">'+total+'</span> 片（'+poRecs.length+' 条记录）</div>';
+  html+='<div class="bp-table-wrap"><table class="bp-table">';
+  html+='<thead><tr><th>时间</th><th>明细</th><th>合计</th><th></th></tr></thead><tbody>';
+  poRecs.forEach(function(r,idx){
+    var detail=PO_NAMES.map(function(n){
+      var v=r.items&&r.items[n]||0;
+      return v>0?n+' '+v:'';
+    }).filter(function(s){return s;}).join('，');
+    html+='<tr>'+
+      '<td>'+r.time+'</td>'+
+      '<td style="text-align:left;max-width:180px;white-space:normal;word-break:break-all">'+detail+'</td>'+
+      '<td><b>'+r.total+'</b></td>'+
+      '<td><span class="del" data-idx="'+idx+'">×</span></td>'+
+    '</tr>';
+  });
+  html+='</tbody></table></div>';
+  el.innerHTML=html;
+}
+
+document.querySelectorAll('.tp-btn').forEach(function(btn){
+  btn.onclick=function(){
+    var t=btn.dataset.t,d=parseInt(btn.dataset.d);
+    if(t==='start'){
+      bpStartH=(bpStartH+d+24)%24;
+    }else{
+      bpEndH=(bpEndH+d+24)%24;
+    }
+    updateBpTimeDisplay();
+    updateBpPreview();
+  };
+});
+
+$('bpTimeRefresh').onclick=function(){
+  refreshBpTimeByNow();
+};
+
+$('bpItems').onclick=function(e){
+  var item=e.target.closest('.bp-item');if(!item)return;
+  var name=item.dataset.name;
+  var btn=e.target.closest('.bp-btn');
+  if(btn){
+    var cur=poData[name]||0;
+    if(btn.dataset.act==='minus')cur=Math.max(0,cur-1);
+    else cur=cur+1;
+    poData[name]=cur;
+    ls.set(KP,poData);
+    var inp=item.querySelector('.bp-val');
+    if(inp)inp.value=cur;
+    item.classList.toggle('has',cur>0);
+    updateBpPreview();
+  }
+};
+$('bpItems').oninput=function(e){
+  var inp=e.target.closest('.bp-val');if(!inp)return;
+  var item=inp.closest('.bp-item');
+  var name=item.dataset.name;
+  var v=parseInt(inp.value)||0;
+  if(v<0)v=0;
+  poData[name]=v;
+  ls.set(KP,poData);
+  item.classList.toggle('has',v>0);
+  updateBpPreview();
+};
+
+$('bpRecord').onclick=function(){
+  var total=0,items={};
+  PO_NAMES.forEach(function(n){
+    var v=poData[n]||0;
+    if(v>0){items[n]=v;total+=v;}
+  });
+  if(!total){return;}
+  var startV=$('bpStartV').textContent,endV=$('bpEndV').textContent;
+  poRecs.unshift({time:startV+'-'+endV,start:startV,end:endV,items:items,total:total,ts:Date.now()});
+  ls.set(KPREC,poRecs);
+  renderBpRecs();
+};
+
+$('bpZero').onclick=function(){
+  clearBpInput();
+};
+
+$('bpRecList').onclick=function(e){
+  var del=e.target.closest('.del');
+  if(del){
+    var idx=parseInt(del.dataset.idx);
+    poRecs.splice(idx,1);
+    ls.set(KPREC,poRecs);
+    renderBpRecs();
+  }
+};
+
+$('bpRecClear').onclick=function(){
+  if(!poRecs.length){return;}
+  poRecs=[];
+  ls.set(KPREC,poRecs);
+  renderBpRecs();
+};
+
+$('bpCopyBtn').onclick=function(){
+  if(!hasBpData())return;
+  var text=buildBpText();
+  copyText(text,function(){
+    var b=$('bpCopyBtn');b.classList.add('done');b.textContent='✓ 已复制到剪贴板';
+    clearTimeout(bpTimer);
+    bpTimer=setTimeout(function(){b.classList.remove('done');b.textContent='一键复制';},1800);
+  });
+};
+
+/* ===== 首次初始化调用 ===== */
+initCalcData();       
+renderBpItems();
+updateBpTimeDisplay(); 
+updateBpPreview();
+renderBpRecs();
+
+switchNtLine('1线');  
+renderFbLine();
+renderFbCodeGrid();
+renderFbBoxes();
+
+refreshNow();
+renderHis();
+
+})();
+</script>
+</body>
+</html>
