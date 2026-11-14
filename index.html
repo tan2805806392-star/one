@@ -17,10 +17,9 @@
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;}
 .app{width:100%;max-width:500px;margin:0 auto;padding-bottom:20px;}
 .top-nav-wrap{background:var(--deep);padding:8px 12px;position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.15);}
-.nav-icons{display:flex;gap:6px;flex:1;position:relative;}
-.nav-indicator{position:absolute;top:0;left:0;height:48px;width:0;border-radius:8px;background:var(--accent);transition:left .28s cubic-bezier(.34,.9,.4,1),width .28s cubic-bezier(.34,.9,.4,1);z-index:0;pointer-events:none;}
-.nav-icons button{flex:1;height:36px;border:none;border-radius:8px;background:transparent;color:#a2c4af;font-size:13px;font-weight:700;cursor:pointer;transition:color .25s;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
-.nav-icons button.active{color:#fff;}
+.nav-icons{display:flex;gap:6px;flex:1;}
+.nav-icons button{flex:1;height:36px;border:none;border-radius:8px;background:rgba(255,255,255,.08);color:#a2c4af;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;}
+.nav-icons button.active{background:var(--accent);color:#fff;}
 .at-btn{width:36px;height:36px;border-radius:8px;border:none;background:rgba(255,255,255,.08);color:#fff;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:6px;}
 .at-btn:active{background:rgba(255,255,255,.2);}
 .page{display:none;padding:12px;}
@@ -48,25 +47,35 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .hero .stop-v{font-size:20px;font-weight:800;color:#f3d67b}
 .hero .bottom-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#8fa898}
 .hero .bottom-row .val{font-size:13px;font-weight:700;color:#fff;margin-left:4px}
+
 .now{display:flex;align-items:center;gap:8px;height:40px;padding:0 10px;background:var(--card2);border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all 0.1s;}
 .now:active{transform:scale(0.96);background:#e5ebe1;}
 .now .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .now .lbl{font-size:12px;font-weight:600;color:var(--sub);margin:0}
 .now .tm{margin-left:auto;font-size:18px;font-weight:800;color:var(--text)}
 .now .rf{font-size:11px;color:var(--accent);background:#fff;padding:3px 8px;border-radius:6px;font-weight:700;transition:all 0.1s;}
-@keyframes flashGreen {0% { background-color: rgba(41,107,72,0.3); }100% { background-color: transparent; }}
-.record-flash {animation: flashGreen 0.3s ease-out;}
+
+@keyframes flashGreen {
+  0% { background-color: rgba(41,107,72,0.3); }
+  100% { background-color: transparent; }
+}
+.record-flash {
+  animation: flashGreen 0.3s ease-out;
+}
+
 .quick{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .quick button{flex:0 0 calc(25% - 4.5px);height:32px;border-radius:6px;background:var(--card2);border:none;color:var(--text);font-size:14px;font-weight:700;cursor:pointer;}
 .quick button.on{background:var(--accent);color:#fff}
 .actions{display:flex;gap:10px;margin-bottom:10px}
 .actions button{flex:1;height:44px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:none}
 .btn-reset{background:var(--danger);border:none;color:#fff;}
-.btn-record{background:var(--accent);color:#fff;}
+.btn-record{background:var(--accent);color:#fff}
+
 .drawer{background:transparent;margin-bottom:10px;}
 .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px;}
 .drawer-head .t{font-size:15px;font-weight:700;color:var(--text);}
 .drawer-head .clr{font-size:13px;color:var(--danger);background:none;border:none;cursor:pointer;}
+
 .hitem{background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:10px;box-shadow:0 2px 10px rgba(0,0,0,.03);position:relative;border-left:4px solid var(--accent);transition:all .3s;}
 .hitem.warn-orange{border-left-color:var(--orange);background:var(--orange-l);}
 .hitem.warn-orange,.hitem.warn-orange *{color:var(--orange)!important;}
@@ -77,7 +86,9 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .hitem.is-done{border-left-color:var(--gray);background:var(--gray-bg);opacity:0.8;box-shadow:none;}
 .hitem.is-done,.hitem.is-done *{color:var(--gray)!important;}
 .hitem.is-done .cell{background:#e5e7eb;}
+
 .stamp-done{position:absolute;right:16px;bottom:16px;width:64px;height:64px;border-radius:50%;border:3px solid var(--danger);color:var(--danger)!important;font-size:14px;font-weight:900;letter-spacing:1px;display:flex;align-items:center;justify-content:center;transform:rotate(-15deg);opacity:0.85;pointer-events:none;z-index:10;background:transparent;}
+
 .hitem .header-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);margin-bottom:8px;font-weight:500;padding-right:28px;transition:color .3s;}
 .hitem .header-row .line-tag{font-weight:800;font-size:14px;}
 .hitem .header-row b{font-weight:800;}
@@ -89,6 +100,7 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .hitem .cell.pick .v{text-decoration:underline;text-underline-offset:3px;}
 .hitem .hmeta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px;font-weight:700;transition:color .3s;}
 .hitem .del{position:absolute;top:10px;right:10px;width:24px;height:24px;line-height:22px;text-align:center;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:16px;cursor:pointer;font-weight:400;z-index:10;}
+
 .nt-result{background:var(--card);border-radius:14px;padding:14px;box-shadow:0 4px 16px rgba(0,0,0,.04);margin-bottom:10px;border-left:4px solid var(--accent);}
 .nt-result h1{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:6px}
 .nt-preview{font-size:16px;font-weight:600;line-height:1.6;color:var(--text);background:var(--card2);border-radius:8px;padding:10px;min-height:56px;word-break:break-all;white-space:pre-wrap;}
@@ -104,7 +116,7 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .single-display .text{font-size:14px;font-weight:700;color:var(--text);}
 .single-display .arrow{font-size:10px;color:var(--sub);}
 .code-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
-.code-chip{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:6px;background:var(--card2);font-size:13px;font-weight:700;cursor:pointer;word-break:break-all;}
+.code-chip{display:inline-flex;align-items:center;justify-content:center;padding:6px 4px 6px 12px;border-radius:6px;background:var(--card2);font-size:13px;font-weight:700;cursor:pointer;word-break:break-all;min-height:36px;}
 .code-chip.on{background:var(--accent);color:#fff}
 .code-empty{text-align:center;color:var(--sub);font-size:12px;padding:10px 0;width:100%}
 .add-row{display:flex;gap:6px}
@@ -168,6 +180,8 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .alert-box p{font-size:15px;color:var(--text);line-height:1.6;margin-bottom:20px;font-weight:600;}
 .alert-box button{width:100%;height:50px;border:none;border-radius:12px;background:var(--danger);color:#fff;font-size:18px;font-weight:800;cursor:pointer;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* 识别相关 */
 .recognize-btn{width:100%;height:44px;border-radius:10px;background:var(--card);border:2px dashed var(--accent);color:var(--accent);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;}
 .recognize-btn:active{background:var(--accent-l);}
 .recognize-btn .ic{font-size:20px;}
@@ -182,21 +196,37 @@ input.highlight-pink{background:#fff0f2;border-color:var(--pink);box-shadow:0 0 
 .ocr-result-item.off .code{color:var(--sub);text-decoration:line-through;}
 .ocr-result-item.off .chk{background:var(--gray);}
 .ocr-empty{text-align:center;color:var(--sub);font-size:13px;padding:14px 0;}
+
+/* 单个大提取按钮 */
 .ocr-parse-btn{width:100%;height:42px;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:#fff;margin-top:10px;}
 .ocr-parse-btn:active{background:var(--accent-d);}
-#toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--accent);color:#fff;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:700;z-index:10000;opacity:0;pointer-events:none;transition:all .25s;box-shadow:0 6px 20px rgba(41,107,72,.4);max-width:90vw;text-align:center;line-height:1.5;}
+
+/* Toast */
+#toast{
+  position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-20px);
+  background:var(--accent);color:#fff;padding:10px 18px;border-radius:20px;
+  font-size:14px;font-weight:700;z-index:10000;opacity:0;pointer-events:none;
+  transition:all .25s;box-shadow:0 6px 20px rgba(41,107,72,.4);max-width:90vw;
+  text-align:center;line-height:1.5;
+}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 #toast.err{background:var(--danger);box-shadow:0 6px 20px rgba(192,92,92,.4);}
+
+/* ---- v2 改进 ---- */
 .app{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 .top-nav-wrap{position:fixed;top:auto;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.18)}
-.nav-icons button{height:48px;font-size:14px;line-height:1;letter-spacing:.5px}
-.at-btn{width:48px;height:48px}
-.page{padding-top:12px;padding-bottom:12px;}
+/* 去掉图标，文字加大加粗 */
+.nav-icons button{height:52px;flex-direction:row;font-size:16px;font-weight:800;letter-spacing:1px;} 
+.at-btn{width:52px;height:52px;font-size:18px}
+
+/* 修复顶部留白过多 */
+.page{padding-top: 8px !important;} 
 #toast{top:calc(14px + env(safe-area-inset-top))}
 button:active{transform:scale(.97)}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn-reset{background:var(--danger-l);color:var(--danger)}
 .actions button{height:48px;font-size:16px}
+.actions .btn-reset{flex:1}.actions .btn-record{flex:2}
 .actions button:disabled,.big-copy:disabled{opacity:.5}
 .quick button{height:40px}
 .clear{padding:5px 10px;font-size:12px}
@@ -204,16 +234,19 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .hitem .del{width:34px;height:34px;line-height:32px;font-size:20px;top:6px;right:6px}
 .hitem .header-row{padding-right:36px}
 .hitem.is-done .stamp-done{color:var(--danger)!important}
-.code-chip{min-height:36px;padding:6px 4px 6px 12px}
 .code-chip .x{padding:6px 10px;margin-left:2px;opacity:.6;font-weight:400}
 .bp-table .del{display:inline-block;padding:4px 10px}
+
+/* 新增单号上下移动按钮样式 */
+.code-chip .move-btns{display:inline-flex;flex-direction:column;margin-left:4px;gap:1px;}
+.code-chip .move-btn{background:none;border:none;font-size:10px;cursor:pointer;color:inherit;opacity:0.6;padding:0 2px;line-height:1;}
+.code-chip .move-btn:active{opacity:1;}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top-nav-wrap">
     <div class="nav-icons">
-      <span class="nav-indicator" id="navIndicator"></span>
       <button class="active" data-tab="0">计算器</button>
       <button data-tab="1">转产</button>
       <button data-tab="2">复板</button>
@@ -290,7 +323,9 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
       <div class="nt-preview" id="ntPreview"><span class="ph">请选择生产线、工艺和单号</span></div>
     </div>
     <button class="big-copy" id="ntCopyBtn" disabled>一键复制</button>
+
     <button class="recognize-btn" id="openRecognizeBtn"><span class="ic">📋</span> 识别单号</button>
+
     <div class="card tight">
       <div class="lbl">生产线</div>
       <div class="circle-nums" id="ntLineGroup">
@@ -312,7 +347,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
           </div>
         </div>
       </div>
-      <div class="lbl" style="margin-top:12px">单号（<span id="libName">1线库</span>）<span style="display:flex;gap:6px"><button class="clear" id="sortLib" style="background:var(--accent)">整理</button><button class="clear" id="clearLib" style="background:var(--danger)">清空本库</button></span></div>
+      <div class="lbl" style="margin-top:12px">单号（<span id="libName">1线库</span>）<button class="clear" id="clearLib" style="background:var(--danger)">清空本库</button></div>
       <div class="code-grid" id="codeGrid"></div>
       <div class="add-row">
         <input type="text" id="newCode" placeholder="多个单号用逗号/顿号/换行分隔" maxlength="500">
@@ -379,6 +414,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
     </div>
   </div>
 
+  <!-- 识别单号弹窗 -->
   <div class="mask" id="recognizeMask">
     <div class="modal">
       <h2>识别单号</h2>
@@ -498,6 +534,7 @@ function fb(text,cb){
   if(ok)cb();else toast('复制失败，请长按预览文字手动复制',true);
 }
 function atsStr(arr){arr=(arr||[]).filter(function(n){return atLib.indexOf(n)>=0;});return arr.length?arr.map(function(n){return '@'+n;}).join(' '):'';}
+
 var toastTimer=null;
 function toast(msg,isErr){
   var t=$('toast');
@@ -506,34 +543,18 @@ function toast(msg,isErr){
   clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){t.className='';},2200);
 }
+
 var navBtns=document.querySelectorAll('.nav-icons button');
-var navIndicator=$('navIndicator');
-var navFirst=true;
 var currentTab=0;
-function moveIndicator(index){
-  if(!navIndicator||!navBtns[index])return;
-  if(navFirst){
-    navIndicator.style.transition='none';
-    navIndicator.style.left=navBtns[index].offsetLeft+'px';
-    navIndicator.style.width=navBtns[index].offsetWidth+'px';
-    void navIndicator.offsetWidth;
-    navFirst=false;
-    navIndicator.style.transition='';
-    return;
-  }
-  navIndicator.style.left=navBtns[index].offsetLeft+'px';
-  navIndicator.style.width=navBtns[index].offsetWidth+'px';
-}
 function switchTab(index){
   if(index<0||index>3)return;
   currentTab=index;ls.set('ct_tab',index);
   navBtns.forEach(function(b,i){b.classList.toggle('active',i===index);});
   document.querySelectorAll('.page').forEach(function(p,i){p.classList.toggle('active',i===index);});
-  moveIndicator(index);
   window.scrollTo(0,0);
 }
 navBtns.forEach(function(btn){btn.onclick=function(){switchTab(parseInt(btn.dataset.tab));};});
-window.addEventListener('resize',function(){moveIndicator(currentTab);});
+
 var KA='ct_at',atLib=ls.get(KA,[]);
 if(!Array.isArray(atLib))atLib=[];
 function saveAtLib(a){ls.set(KA,a);atLib=a;}
@@ -548,10 +569,13 @@ $('atManageList').onclick=function(e){
   var del=e.target.closest('.x');
   if(del){saveAtLib(atLib.filter(function(n){return n!==del.dataset.delat;}));renderAtManage();}
 };
+
 function parseAtNames(raw){
   var text=(raw||'').trim();
   if(!text) return [];
-  if(text.indexOf('@')<0){return [text];}
+  if(text.indexOf('@')<0){
+    return [text];
+  }
   var names=[];
   var parts=text.split('@');
   for(var i=1;i<parts.length;i++){
@@ -563,23 +587,33 @@ function parseAtNames(raw){
   var seen={},out=[];
   names.forEach(function(n){
     if(seen[n])return;
-    seen[n]=1;out.push(n);
+    seen[n]=1;
+    out.push(n);
   });
   return out;
 }
+
 $('addAtNameBtn').onclick=function(){
   var inp=$('newAtName');
   var raw=inp.value;
   if(!raw.trim())return;
+
   var parts=parseAtNames(raw);
-  if(!parts.length){toast('没识别到 @ 名字',true);return;}
+  if(!parts.length){
+    toast('没识别到 @ 名字',true);
+    return;
+  }
+
   var added=0,skipped=0;
   parts.forEach(function(name){
     if(atLib.indexOf(name)>=0){skipped++;return;}
-    atLib.push(name);added++;
+    atLib.push(name);
+    added++;
   });
   saveAtLib(atLib);
-  inp.value='';renderAtManage();
+  inp.value='';
+  renderAtManage();
+
   var msg=[];
   if(added>0) msg.push('已添加 '+added+' 个');
   if(skipped>0) msg.push('跳过 '+skipped+' 个已存在');
@@ -588,6 +622,7 @@ $('addAtNameBtn').onclick=function(){
 $('newAtName').addEventListener('keydown',function(e){if(e.key==='Enter')$('addAtNameBtn').click();});
 $('fabAt').onclick=function(){renderAtManage();$('atMask').classList.add('open');};
 $('atMaskClose').onclick=function(){$('atMask').classList.remove('open');};
+
 var copyMaskMode='',copyMaskLine='',copyMaskAts=[],copyMaskCb=null;
 function openCopyMask(mode,line,ats,cb){
   copyMaskMode=mode;copyMaskLine=line||'1线';copyMaskAts=(ats||[]).slice();copyMaskCb=cb;
@@ -628,6 +663,7 @@ $('copyMaskOk').onclick=function(){
   }
   $('copyMask').classList.remove('open');
 };
+
 var lineMaskCb=null;
 function openLineMask(cb){
   lineMaskCb=cb;
@@ -643,6 +679,7 @@ $('lineMaskGroup').onclick=function(e){
   },150);
 };
 $('lineMaskCancel').onclick=function(){$('lineMask').classList.remove('open');};
+
 var selectMaskCb=null;
 function openSelectMask(title,options,currentVal,cb){
   selectMaskCb=cb;
@@ -659,17 +696,23 @@ function openSelectMask(title,options,currentVal,cb){
   };
   $('selectMask').classList.add('open');
 }
+
+/* ===== 计算器 ===== */
 var KD='ct_data',KH='ct_his',HMAX=20;
 var DEF={press:'10.1',brick:'1200x600',proc:'',ink:'',broken:0};
 var sH=0,sM=0,last=null,cTimer=null;
+
 var KALERT='ct_alerted';
 var alertedIds=ls.get(KALERT,{});
 if(typeof alertedIds!=='object'||alertedIds===null)alertedIds={};
 function saveAlerted(){ls.set(KALERT,alertedIds);}
+
 function num(el){var v=el.value.trim();if(v==='')return null;var n=Number(v);return isFinite(n)?Math.max(0,n):null;}
 function fmtTime(m){var t=((m%1440)+1440)%1440;return pad(Math.floor(t/60))+':'+pad(Math.floor(t%60));}
 function fmtMin(m){return m.toFixed(1);}
+
 for(var i=0;i<19;i++){var v=(9+i*0.1).toFixed(1);$('press').add(new Option(v,v));}
+
 function initCalcData(){
   var d=ls.get(KD,DEF);
   $('press').value=d.press;
@@ -678,9 +721,11 @@ function initCalcData(){
   $('ink').value=d.ink===null||d.ink===undefined?'':d.ink;
   $('broken').value=d.broken===null||d.broken===undefined?0:d.broken;syncQuick();
 }
+
 function refreshNow(){var d=new Date();sH=d.getHours();sM=d.getMinutes();$('nowTime').textContent=pad(sH)+':'+pad(sM);recalc();}
 function readData(){
   var proc=num($('proc')),ink=num($('ink'));
+  
   return{press:parseFloat($('press').value)||10.1,brick:$('brick').value,proc:proc,ink:ink,broken:num($('broken'))||0};
 }
 function recalc(){
@@ -707,6 +752,7 @@ function recalc(){
     finishTs:_mid+finishTotal*60000, recordTs:Date.now()};
   $('record').disabled=false;$('copy').disabled=false;
 }
+
 function histTs(it){return it.finishTs||((it.recordTs||Date.now())+(parseFloat(it.total)||0)*60000);}
 function renderHis(){
   var list=ls.get(KH,[]).filter(function(it){return it&&it.finish&&it.stop&&it.id;});
@@ -717,30 +763,55 @@ function renderHis(){
     return;
   }
   var nowMs=Date.now();
-  var activeList=[],doneList=[],triggers=[];
-  list.forEach(function(it){
-    var fTs = histTs(it); 
-    var stopTs = fTs - 50*60000;
+
+  // 获取状态类别 (1:未完成, 2:已完成)
+  function getStatusCategory(it) {
+    var fTs = histTs(it);
     var recTs = it.recordTs || (fTs - (parseInt(it.total)||0)*60000);
     var diffHours = (nowMs - recTs) / (1000 * 60 * 60);
-    if (nowMs >= fTs || diffHours >= 24) {
-      doneList.push(it);
-    } else {
-      activeList.push(it);
-      if(!alertedIds[it.id]&&nowMs>=stopTs){
-        alertedIds[it.id]=true;
-        saveAlerted();
-        triggers.push(it);
-      }
+    if (nowMs >= fTs || diffHours >= 24) return 2; 
+    return 1; 
+  }
+
+  var triggers=[];
+  list.forEach(function(it){
+    var status = getStatusCategory(it);
+    var fTs = histTs(it);
+    var stopTs = fTs - 50*60000;
+    if (status === 1 && !alertedIds[it.id] && nowMs >= stopTs) {
+      alertedIds[it.id]=true;
+      saveAlerted();
+      triggers.push(it);
     }
   });
-  activeList.sort(function(a,b){var d=histTs(a)-histTs(b);return d!==0?d:(a.id<b.id?-1:1);});
-  doneList.sort(function(a,b){
-    var d=(b.finishTs||0)-(a.finishTs||0);
-    return d!==0?d:(a.id<b.id?-1:1);
+
+  // 核心排序逻辑重写
+  var sortedList = list.slice().sort(function(a, b) {
+    var catA = getStatusCategory(a);
+    var catB = getStatusCategory(b);
+    
+    // 1. 状态优先：未完成(1) > 已完成(2)
+    if (catA !== catB) return catA - catB;
+
+    var lineA = a.line || '1线';
+    var lineB = b.line || '1线';
+
+    // 2. 不同线：按预计到达时间升序（最快到达的在上面）
+    if (lineA !== lineB) {
+      return histTs(a) - histTs(b);
+    }
+
+    // 3. 同一条线：按记录时间降序（谁最新记录的在上面）
+    var tsA = a.recordTs || 0;
+    var tsB = b.recordTs || 0;
+    if (tsA !== tsB) return tsB - tsA;
+
+    // 4. 兜底
+    return histTs(a) - histTs(b);
   });
+
   var ids={},pr=false;list.forEach(function(it){ids[it.id]=1;});Object.keys(alertedIds).forEach(function(k){if(!ids[k]){delete alertedIds[k];pr=true;}});if(pr)saveAlerted();
-  var sortedList=activeList.concat(doneList);
+
   var html=sortedList.map(function(it){
     var ft=it.finish.split(':');
     var totM=parseInt(ft[0],10)*60+parseInt(ft[1],10)-120;
@@ -748,7 +819,9 @@ function renderHis(){
     var fTs=histTs(it);
     var stopTs=fTs-50*60000;
     var wxTs=fTs-120*60000;
+    
     var cls='',stamp='';
+    
     if(nowMs>=fTs){
       cls='is-done';
       stamp='<div class="stamp-done">已完成</div>';
@@ -757,6 +830,7 @@ function renderHis(){
     }else if(nowMs>=wxTs){
       cls='warn-orange';
     }
+    
     return '<div class="hitem '+cls+'">'+
       stamp+
       '<div class="header-row">'+
@@ -771,19 +845,21 @@ function renderHis(){
         '<div class="cell"><span class="k">剩余片数</span><span class="v">'+it.remain+'</span></div>'+
       '</div>'+
       '<div class="hmeta">'+
-        '<span>'+it.brickLabel+'</span><span>压次 '+it.press+'</span><span>喷墨 '+it.ink+'</span>'+
+        '<span>'+it.brickLabel+'</span><span>压次 '+it.press+'</span><span>喷墨房已做 '+it.ink+'</span>'+
         '<span>合计 '+it.total+' 分</span><span>破损 '+it.broken+' 分</span>'+
       '</div>'+
       '<div class="del" data-id="'+it.id+'">×</div>'+
     '</div>';
   }).join('');
   body.innerHTML=html;
+
   if(triggers.length){
     $('alertMsg').innerHTML=triggers.map(function(t){return '【'+esc(t.line||'1线')+'】压机停机时间到了！预计停机 '+esc(t.stop);}).join('<br><br>');
     $('alertMask').classList.add('open');
     if(navigator.vibrate){navigator.vibrate([500,200,500]);}
   }
 }
+
 $('nowBox').onclick=function(){
   refreshNow(); 
   var rfTxt = $('refreshTxt');
@@ -803,19 +879,22 @@ $('nowBox').onclick=function(){
     rfTxt.style.background = '#fff';
   }, 300);
 };
+
 setInterval(function(){
   refreshNow();
   if(document.querySelectorAll('.hitem').length>0)renderHis();
   if(currentTab===1)updateNtPreview();else if(currentTab===2)updateFbPreview();
 }, 10000);
+
 function addHis(rec,line){
   var list=ls.get(KH,[]);
   rec.line=line;rec.id=Date.now()+'_'+Math.random().toString(36).slice(2,6);
-  rec.recordTs = Date.now();
+  rec.recordTs = Date.now(); 
   list.unshift(rec);if(list.length>HMAX)list.length=HMAX;
   ls.set(KH,list);
   renderHis();
 }
+
 ['proc','ink','broken'].forEach(function(id){$(id).addEventListener('input',recalc);});
 ['press','brick'].forEach(function(id){$(id).addEventListener('change',recalc);});
 function syncQuick(){var b=String($('broken').value);document.querySelectorAll('.quick button').forEach(function(x){x.classList.toggle('on',x.dataset.b===b);});}
@@ -829,7 +908,9 @@ document.querySelectorAll('.quick button').forEach(function(b){
     document.querySelectorAll('.quick button').forEach(function(x){x.classList.toggle('on',x===b);});
   };
 });
+
 $('reset').onclick=function(){$('proc').value='';$('ink').value='';recalc();};
+
 $('copy').onclick=function(){
   if(!last)return;
   refreshNow();
@@ -851,6 +932,7 @@ $('record').onclick=function(){
     addHis(Object.assign({},last),line);
   });
 };
+
 $('hisClear').onclick=function(e){
   e.stopPropagation();
   if(!ls.get(KH,[]).length||!confirm('清空全部历史记录？'))return;
@@ -865,19 +947,24 @@ $('hBody').onclick=function(e){
   var pick=e.target.closest('.cell.pick');
   if(pick){
     $('proc').value=pick.dataset.proc;
-    recalc();
+    $('ink').value=''; 
     $('proc').classList.add('highlight-pink');
     setTimeout(function(){$('proc').classList.remove('highlight-pink');},800);
+    recalc();
+    $('ink').focus(); 
   }
 };
+
 /* ===== 单号库 ===== */
 var KL='ct_lib',KC='ct_craft',LIBMAX=20;
 function getLib(){var l=ls.get(KL,{});['1线','2线','3线'].forEach(function(k){if(!Array.isArray(l[k]))l[k]=[];});return l;}
 function saveLib(l){ls.set(KL,l);}
 function getCraftMap(){return ls.get(KC,{'1线':'仿古','2线':'仿古','3线':'仿古'});}
+
 /* ===== 转产 ===== */
 var ntLine='1线',ntCraft='仿古',ntStatus='已转产',selCode='';
 var ntAts=ls.get('ct_ca_nt',[]);var ntTimer=null;
+
 function switchNtLine(line){
   ntLine=line;selCode='';ls.set('ct_ntline',line);
   var craft=getCraftMap()[line]||'仿古';
@@ -907,8 +994,16 @@ function renderNtCodeGrid(){
   $('libCount').textContent=arr.length;
   var el=$('codeGrid');
   if(!arr.length){el.innerHTML='<div class="code-empty">该线暂无单号，下方添加</div>';return;}
-  el.innerHTML=arr.map(function(c){
-    return '<span class="code-chip '+(c===selCode?'on':'')+'" data-code="'+esc(c)+'">'+esc(c)+'<span class="x" data-delcode="'+esc(c)+'">×</span></span>';
+  
+  el.innerHTML=arr.map(function(c, idx){
+    return '<span class="code-chip '+(c===selCode?'on':'')+'" data-code="'+esc(c)+'">'+
+      esc(c)+
+      '<span class="move-btns">'+
+        '<button class="move-btn" data-move="up" data-code="'+esc(c)+'" '+(idx===0?'style="opacity:0.1"':'')+'>▲</button>'+
+        '<button class="move-btn" data-move="down" data-code="'+esc(c)+'" '+(idx===arr.length-1?'style="opacity:0.1"':'')+'>▼</button>'+
+      '</span>'+
+      '<span class="x" data-delcode="'+esc(c)+'">×</span>'+
+    '</span>';
   }).join('');
 }
 $('codeGrid').onclick=function(e){
@@ -920,6 +1015,35 @@ $('codeGrid').onclick=function(e){
     saveLib(lib);renderNtCodeGrid();renderFbCodeGrid();updateNtPreview();
     return;
   }
+  
+  var moveBtn = e.target.closest('.move-btn');
+  if(moveBtn){
+    e.stopPropagation();
+    var direction = moveBtn.dataset.move;
+    var code = moveBtn.dataset.code;
+    var lib = getLib();
+    var arr = lib[ntLine];
+    var index = arr.indexOf(code);
+    if (index < 0) return;
+    
+    if (direction === 'up' && index > 0) {
+      var temp = arr[index - 1];
+      arr[index - 1] = arr[index];
+      arr[index] = temp;
+      saveLib(lib);
+      renderNtCodeGrid();
+      renderFbCodeGrid();
+    } else if (direction === 'down' && index < arr.length - 1) {
+      var temp = arr[index + 1];
+      arr[index + 1] = arr[index];
+      arr[index] = temp;
+      saveLib(lib);
+      renderNtCodeGrid();
+      renderFbCodeGrid();
+    }
+    return;
+  }
+
   var chip=e.target.closest('[data-code]');
   if(chip){selCode=chip.dataset.code;renderNtCodeGrid();updateNtPreview();}
 };
@@ -931,11 +1055,13 @@ $('addCodeBtn').onclick=function(){
     return s.trim().replace(/\s+/g,' ');
   }).filter(function(s){return s;});
   if(!parts.length)return;
+
   var lib=getLib();
   var lines=['1线','2线','3线'];
   var added=0, skipped=0, full=false;
   var seen={};
   var lastAdded='';
+
   parts.forEach(function(code){
     var c=code.toUpperCase();
     if(seen[c])return;
@@ -948,6 +1074,7 @@ $('addCodeBtn').onclick=function(){
     lastAdded=c;
     added++;
   });
+
   if(added>0){
     saveLib(lib);
     selCode=lastAdded;
@@ -963,24 +1090,6 @@ $('clearLib').onclick=function(){
   if(!confirm('清空'+ntLine+'全部单号？'))return;
   var lib=getLib();lib[ntLine]=[];
   saveLib(lib);selCode='';renderNtCodeGrid();renderFbCodeGrid();updateNtPreview();
-};
-$('sortLib').onclick=function(){
-  var lib=getLib();
-  if(!lib[ntLine].length){toast('该线暂无单号',true);return;}
-  var seen={},arr=[];
-  lib[ntLine].forEach(function(c){
-    if(!c||seen[c])return;
-    seen[c]=1;arr.push(c);
-  });
-  arr.sort(function(a,b){
-    return String(a).localeCompare(String(b),'zh-Hans-CN',{numeric:true,sensitivity:'base'});
-  });
-  lib[ntLine]=arr;
-  saveLib(lib);
-  renderNtCodeGrid();
-  renderFbCodeGrid();
-  updateNtPreview();
-  toast('已整理排序（'+arr.length+' 条）');
 };
 function updateNtPreview(){
   var el=$('ntPreview');
@@ -1001,34 +1110,40 @@ $('ntCopyBtn').onclick=function(){
     });
   });
 };
-/* ===== 识别单号 ===== */
+
+/* ===== 识别单号（手动粘贴 + 提取，确认后添加） ===== */
 var ocrParsedCodes=[];
+
 function isNoiseLine(t){
   return /工艺|转产|底釉|面釉|模具|商标|线上|喷墨房|注意|详见|不变|生产编号|下个版|编号[:：]|@/.test(t);
 }
 function looksLikeCode(t,loose){
   if(!t) return false;
-  if(/[\u4e00-\u9fa5]/.test(t)) return false;
+  if(/[\u4e00-\u9fa5]/.test(t)) return false; 
   if(!/^[A-Za-z0-9\-\s\._]+$/.test(t)) return false;
   if(!/[A-Za-z0-9]/.test(t)) return false;
   if(!loose&&(!/[A-Za-z]/.test(t)||!/\d/.test(t))) return false;
   return true;
 }
+
 function extractCodesFromText(text){
   var result=[], seen={};
   if(!text) return result;
   var CRAFT='抛釉|仿古|柔光|哑光|亮光|糖果釉|岩板|大板|微晶|通体';
   var STATUS='已转产|已换文件|进窑|转产|已进窑';
+
   var lines=text.split(/\r?\n/);
   lines.forEach(function(line){
     var t=line.trim();
     if(!t) return;
+
     var m=t.match(/(?:生产编号|下个版编号|下个版|编号|单号|生产单号)\s*[:：]\s*(.+)$/);
     if(m){
       var v=m[1].trim().toUpperCase().replace(/[\u4e00-\u9fa5].*$/,'').trim();
       if(v && !seen[v]){seen[v]=1;result.push({code:v,type:'编号'});}
       return;
     }
+
     var inlineRe=new RegExp('(?:'+CRAFT+')\\s*([A-Za-z0-9 \\-_\\.]{3,}?)\\s*(?:'+STATUS+'|，|,|。|$)', 'g');
     var mi;
     var foundInline=false;
@@ -1042,10 +1157,14 @@ function extractCodesFromText(text){
       }
     }
     if(foundInline) return;
+
     if(/^[\u4e00-\u9fa5@]/.test(t)&&isNoiseLine(t)) return;
+
     var clean=t.replace(/[（(].*?[)）]/g,'').replace(/[\u4e00-\u9fa5].*$/,'').trim();
     if(!clean) return;
+
     clean = clean.replace(/\s+/g, ' ');
+
     if(looksLikeCode(clean)){
       var up2=clean.toUpperCase().trim();
       if(!seen[up2]){seen[up2]=1;result.push({code:up2,type:'单号'});}
@@ -1061,6 +1180,7 @@ function extractCodesFromText(text){
   });
   return result;
 }
+
 function openRecognizeDialog(){
   $('ocrInput').value='';
   $('ocrResultWrap').style.display='none';
@@ -1071,7 +1191,9 @@ function openRecognizeDialog(){
   $('recognizeMask').classList.add('open');
   setTimeout(function(){ $('ocrInput').focus(); },200);
 }
+
 $('openRecognizeBtn').onclick=openRecognizeDialog;
+
 function renderOcrResults(){
   var el=$('ocrResultList');
   el.innerHTML=ocrParsedCodes.map(function(item,idx){
@@ -1087,6 +1209,7 @@ function updateOcrConfirmBtn(){
   var any=ocrParsedCodes.some(function(i){return i.checked;});
   $('recognizeConfirm').disabled=!any;
 }
+
 function parseAndPreview(text){
   var codes=extractCodesFromText(text);
   if(!codes.length){
@@ -1100,21 +1223,26 @@ function parseAndPreview(text){
   renderOcrResults();
   toast('已提取 '+codes.length+' 个单号，请确认');
 }
+
 $('parseBtn').onclick=function(){
   var text=$('ocrInput').value;
   if(!text.trim()){toast('请输入或粘贴文字',true);return;}
   parseAndPreview(text);
 };
+
 $('ocrResultList').onclick=function(e){
   var item=e.target.closest('.ocr-result-item');if(!item)return;
   var idx=parseInt(item.dataset.idx);
   ocrParsedCodes[idx].checked=!ocrParsedCodes[idx].checked;
   renderOcrResults();
 };
+
 $('recognizeCancel').onclick=function(){$('recognizeMask').classList.remove('open');};
+
 $('recognizeConfirm').onclick=function(){
   var codes=ocrParsedCodes.filter(function(i){return i.checked;}).map(function(i){return i.code;});
   if(!codes.length)return;
+
   var lib=getLib();
   var linesArr=['1线','2线','3线'];
   var added=0, skipped=0, full=false, lastAdded='';
@@ -1136,6 +1264,7 @@ $('recognizeConfirm').onclick=function(){
   renderNtCodeGrid();
   renderFbCodeGrid();
   updateNtPreview();
+
   var parts=[];
   if(added>0) parts.push('已添加 '+added+' 个到'+ntLine+'库');
   if(skipped>0) parts.push('跳过 '+skipped+' 个已存在');
@@ -1143,6 +1272,7 @@ $('recognizeConfirm').onclick=function(){
   if(!parts.length) parts.push('无新增单号');
   toast(parts.join('，'), full);
 };
+
 /* ===== 复板 ===== */
 var KF='ct_fb_sel';
 var fbSel=ls.get(KF,{'1线':[],'2线':[],'3线':[]});
@@ -1220,6 +1350,7 @@ $('fbCopyBtn').onclick=function(){
     });
   });
 };
+
 /* ===== 破损 ===== */
 var KP='ct_po',KPREC='ct_po_rec',KBP_TIME='ct_bp_time';
 var PO_NAMES=['色卡','滴墨','缺角','烂砖','缺釉','分层','喷墨不良','断砖','开边砖','落脏'];
@@ -1227,7 +1358,9 @@ var poData=ls.get(KP,{});
 var poRecs=ls.get(KPREC,[]);
 if(!Array.isArray(poRecs))poRecs=[];
 var bpTimer=null;
+
 PO_NAMES.forEach(function(n){if(typeof poData[n]!=='number')poData[n]=0;});
+
 var bpTimeCache = ls.get(KBP_TIME, null);
 var bpStartH=0, bpEndH=0;
 if(bpTimeCache && typeof bpTimeCache.startH==='number'){
@@ -1239,6 +1372,7 @@ if(bpTimeCache && typeof bpTimeCache.startH==='number'){
   bpEndH=now.getHours();
   ls.set(KBP_TIME, {startH:bpStartH, endH:bpEndH});
 }
+
 function saveBpTime(){ ls.set(KBP_TIME, {startH:bpStartH, endH:bpEndH}); }
 function updateBpTimeDisplay(){
   $('bpStartV').textContent=pad(bpStartH)+':00';
@@ -1252,6 +1386,7 @@ function refreshBpTimeByNow(){
   updateBpTimeDisplay();
   updateBpPreview();
 }
+
 function renderBpItems(){
   var el=$('bpItems');
   el.innerHTML=PO_NAMES.map(function(name){
@@ -1266,6 +1401,7 @@ function renderBpItems(){
     '</div>';
   }).join('');
 }
+
 function buildBpText(){
   var startV=$('bpStartV').textContent,endV=$('bpEndV').textContent;
   var lines=[startV+'-'+endV];
@@ -1275,11 +1411,13 @@ function buildBpText(){
   });
   return lines.join('\n');
 }
+
 function hasBpData(){
   var has=false;
   PO_NAMES.forEach(function(n){if((poData[n]||0)>0)has=true;});
   return has;
 }
+
 function updateBpPreview(){
   var el=$('bpPreview');
   if(!hasBpData()){
@@ -1294,12 +1432,14 @@ function updateBpPreview(){
     .replace(/\n/g,'<br>');
   $('bpCopyBtn').disabled=false;
 }
+
 function clearBpInput(){
   PO_NAMES.forEach(function(n){poData[n]=0;});
   ls.set(KP,poData);
   renderBpItems();
   updateBpPreview();
 }
+
 function renderBpRecs(){
   var el=$('bpRecList');
   $('bpRecCount').textContent=poRecs.length?'（'+poRecs.length+'）':'';
@@ -1324,6 +1464,7 @@ function renderBpRecs(){
   html+='</tbody></table></div>';
   el.innerHTML=html;
 }
+
 document.querySelectorAll('.tp-btn').forEach(function(btn){
   btn.onclick=function(){
     var t=btn.dataset.t,d=parseInt(btn.dataset.d);
@@ -1336,9 +1477,11 @@ document.querySelectorAll('.tp-btn').forEach(function(btn){
     updateBpPreview();
   };
 });
+
 $('bpTimeRefresh').onclick=function(){
   refreshBpTimeByNow();
 };
+
 $('bpItems').onclick=function(e){
   var item=e.target.closest('.bp-item');if(!item)return;
   var name=item.dataset.name;
@@ -1366,6 +1509,7 @@ $('bpItems').oninput=function(e){
   item.classList.toggle('has',v>0);
   updateBpPreview();
 };
+
 $('bpRecord').onclick=function(){
   var total=0,items={};
   PO_NAMES.forEach(function(n){
@@ -1380,9 +1524,11 @@ $('bpRecord').onclick=function(){
   renderBpRecs();
   toast('已记录 '+total+' 片');
 };
+
 $('bpZero').onclick=function(){
   clearBpInput();
 };
+
 $('bpRecList').onclick=function(e){
   var del=e.target.closest('.del');
   if(del){
@@ -1392,12 +1538,14 @@ $('bpRecList').onclick=function(e){
     renderBpRecs();
   }
 };
+
 $('bpRecClear').onclick=function(){
   if(!poRecs.length||!confirm('清空全部破损记录？')){return;}
   poRecs=[];
   ls.set(KPREC,poRecs);
   renderBpRecs();
 };
+
 $('bpCopyBtn').onclick=function(){
   if(!hasBpData())return;
   var text=buildBpText();
@@ -1407,6 +1555,7 @@ $('bpCopyBtn').onclick=function(){
     bpTimer=setTimeout(function(){b.classList.remove('done');b.textContent='一键复制';},1800);
   });
 };
+
 document.querySelectorAll('.mask').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m&&m.id!=='recognizeMask')m.classList.remove('open');});});
 /* ===== 首次初始化调用 ===== */
 initCalcData();       
@@ -1414,15 +1563,16 @@ renderBpItems();
 updateBpTimeDisplay(); 
 updateBpPreview();
 renderBpRecs();
+
 switchNtLine(['1线','2线','3线'].indexOf(ls.get('ct_ntline','1线'))>=0?ls.get('ct_ntline','1线'):'1线');  
 renderFbLine();
 renderFbCodeGrid();
 renderFbBoxes();
+
 refreshNow();
 renderHis();
-var _t=parseInt(ls.get('ct_tab',0),10);
-if(!(_t>=0&&_t<4))_t=0;
-switchTab(_t);
+var _t=ls.get('ct_tab',0);if(_t>0&&_t<4)switchTab(_t);
+
 })();
 </script>
 </body>
